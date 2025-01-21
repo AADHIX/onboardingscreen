@@ -4,7 +4,7 @@ void main() {
   runApp(const MyApp());
 }
 
-class  MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
@@ -19,7 +19,6 @@ class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _OnboardingScreenState createState() => _OnboardingScreenState();
 }
 
@@ -29,33 +28,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<Map<String, String>> pages = [
     {
-      "image": "assets/img1.png",
+      "image": "assets/mock1.png",
       "title": "Find Nearby Parking Spots with Ease",
-      "subtitle": "Discover new  way of Parking Solution with Us."
+      "subtitle": "Discover new way of Parking Solution with Us."
     },
     {
-      "image": "assets/img2.png",
+      "image": "assets/mock2.png",
       "title": "Save your Favourite Parking Spots for Later",
       "subtitle": "Become our Family member with Prime Subscriptions."
     },
     {
-      "image": "assets/img3.png",
+      "image": "assets/mock3.png",
       "title": "The Easiest Way to Track Your Parking Booking",
       "subtitle": "Track your progress and achieve your dreams."
     },
     {
-      "image": "assets/img4.png",
+      "image": "assets/mock4.png",
       "title": "Explore More",
       "subtitle": "Find new opportunities and experiences."
     },
     {
-      "image": "assets/img5.png",
-      "title": "community support",
+      "image": "assets/mock5.png",
+      "title": "Community Support",
       "subtitle": "Enjoy features tailored to your needs."
     },
     {
-      "image": "assets/img6.png",
-      "title": "let's get started",
+      "image": "assets/mock6.png",
+      "title": "Let's Get Started",
       "subtitle": "Let’s begin the journey together!"
     },
   ];
@@ -73,7 +72,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
-          if (_currentPage != pages.length - 1) // Show SKIP button
+          if (_currentPage != pages.length - 1)
             TextButton(
               onPressed: () {
                 _pageController.jumpToPage(pages.length - 1);
@@ -89,21 +88,34 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
         ],
       ),
-      body: PageView.builder(
-        controller: _pageController,
-        onPageChanged: (int page) {
-          setState(() {
-            _currentPage = page;
-          });
-        },
-        itemCount: pages.length,
-        itemBuilder: (context, index) {
-          return _buildPageContent(
-            image: pages[index]["image"]!,
-            title: pages[index]["title"]!,
-            subtitle: pages[index]["subtitle"]!,
-          );
-        },
+      body: Stack(
+        children: [
+          // Background with ClipPath
+          ClipPath(
+            clipper: CurvedClipper(),
+            child: Container(
+              color: Color.fromARGB(255, 238, 159, 238).withOpacity(0.1),
+            ),
+          ),
+
+          // PageView
+          PageView.builder(
+            controller: _pageController,
+            onPageChanged: (int page) {
+              setState(() {
+                _currentPage = page;
+              });
+            },
+            itemCount: pages.length,
+            itemBuilder: (context, index) {
+              return _buildPageContent(
+                image: pages[index]["image"]!,
+                title: pages[index]["title"]!,
+                subtitle: pages[index]["subtitle"]!,
+              );
+            },
+          ),
+        ],
       ),
       bottomSheet: Container(
         height: 80,
@@ -124,7 +136,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       shape: const CircleBorder(),
                       padding: const EdgeInsets.all(15),
                       backgroundColor: Colors.purple,
-                      foregroundColor: Color.fromARGB(255, 245, 241, 241),
+                      foregroundColor: const Color.fromARGB(255, 245, 241, 241),
                     ),
                     child: const Icon(Icons.arrow_back, size: 24),
                   )
@@ -139,8 +151,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   width: (index == _currentPage) ? 20 : 10,
                   margin: const EdgeInsets.symmetric(horizontal: 5),
                   decoration: BoxDecoration(
-                    color:
-                        (index == _currentPage) ? Color.fromARGB(255, 249, 143, 5) : Color.fromARGB(255, 244, 167, 90),
+                    color: (index == _currentPage)
+                        ? Color.fromARGB(234, 90, 36, 113)
+                        : Color.fromARGB(255, 128, 88, 220),
                     borderRadius: BorderRadius.circular(5),
                   ),
                 );
@@ -160,26 +173,26 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       shape: const CircleBorder(),
                       padding: const EdgeInsets.all(15),
                       backgroundColor: Colors.purple,
-                      foregroundColor: Color.fromARGB(253, 255, 255, 255),
+                      foregroundColor: const Color.fromARGB(253, 255, 255, 255),
                     ),
                     child: const Icon(Icons.arrow_forward, size: 24),
                   )
                 : ElevatedButton(
                     onPressed: () {
-                      // Navigate to HomeScreen
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) =>const HomeScreen()),
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      backgroundColor: Colors.black,
-                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      backgroundColor: const Color.fromARGB(255, 245, 241, 241),
+                      foregroundColor: const Color.fromARGB(15, 3, 1, 5),
                     ),
                     child: const Text('GET STARTED'),
                   ),
@@ -195,15 +208,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     required String subtitle,
   }) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Image at the top
-          Image.asset(image, height: 300, fit: BoxFit.contain),
-          const SizedBox(height: 40),
-
-          // Title
+          Image.asset(image, height: 260, fit: BoxFit.contain),
+          const SizedBox(height: 100),
           Text(
             title,
             style: const TextStyle(
@@ -213,8 +223,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 20),
-
-          // Subtitle
           Text(
             subtitle,
             style: const TextStyle(
@@ -229,6 +237,31 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 }
+
+// Custom Clipper for Curved Background
+class CurvedClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path.lineTo(0, size.height * 0.6); // Lower the start
+path.quadraticBezierTo(
+  size.width / 2,
+  size.height * 0.2, // Adjust the curve height
+  size.width,
+  size.height * 0.6, // Match start and end
+);
+
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+
+
+  
 
 // HomeScreen widget
 class HomeScreen extends StatelessWidget {
@@ -249,3 +282,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
