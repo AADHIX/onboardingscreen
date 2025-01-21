@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class  MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: OnboardingScreen(),
     );
   }
 }
 
 class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _OnboardingScreenState createState() => _OnboardingScreenState();
 }
 
@@ -25,17 +30,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final List<Map<String, String>> pages = [
     {
       "image": "assets/img1.png",
-      "title": "Welcome to App",
-      "subtitle": "Discover new possibilities with our app."
+      "title": "Find Nearby Parking Spots with Ease",
+      "subtitle": "Discover new  way of Parking Solution with Us."
     },
     {
       "image": "assets/img2.png",
-      "title": "Stay Connected",
-      "subtitle": "Keep in touch with friends and family."
+      "title": "Save your Favourite Parking Spots for Later",
+      "subtitle": "Become our Family member with Prime Subscriptions."
     },
     {
       "image": "assets/img3.png",
-      "title": "Achieve Goals",
+      "title": "The Easiest Way to Track Your Parking Booking",
       "subtitle": "Track your progress and achieve your dreams."
     },
     {
@@ -45,12 +50,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     },
     {
       "image": "assets/img5.png",
-      "title": "Personalized Features",
+      "title": "community support",
       "subtitle": "Enjoy features tailored to your needs."
     },
     {
       "image": "assets/img6.png",
-      "title": "Get Started",
+      "title": "let's get started",
       "subtitle": "Let’s begin the journey together!"
     },
   ];
@@ -118,8 +123,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     style: ElevatedButton.styleFrom(
                       shape: const CircleBorder(),
                       padding: const EdgeInsets.all(15),
-                      backgroundColor: Colors.grey[300],
-                      foregroundColor: Colors.black,
+                      backgroundColor: Colors.purple,
+                      foregroundColor: Color.fromARGB(255, 245, 241, 241),
                     ),
                     child: const Icon(Icons.arrow_back, size: 24),
                   )
@@ -135,7 +140,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   margin: const EdgeInsets.symmetric(horizontal: 5),
                   decoration: BoxDecoration(
                     color:
-                        (index == _currentPage) ? Colors.black : Colors.grey,
+                        (index == _currentPage) ? Color.fromARGB(255, 249, 143, 5) : Color.fromARGB(255, 244, 167, 90),
                     borderRadius: BorderRadius.circular(5),
                   ),
                 );
@@ -154,8 +159,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     style: ElevatedButton.styleFrom(
                       shape: const CircleBorder(),
                       padding: const EdgeInsets.all(15),
-                      backgroundColor: Colors.black,
-                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.purple,
+                      foregroundColor: Color.fromARGB(253, 255, 255, 255),
                     ),
                     child: const Icon(Icons.arrow_forward, size: 24),
                   )
@@ -164,7 +169,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       // Navigate to HomeScreen
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                        MaterialPageRoute(builder: (context) =>const HomeScreen()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -192,24 +197,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Container(
       padding: const EdgeInsets.all(20),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(image, height: 250, fit: BoxFit.contain),
-          const SizedBox(height: 30),
+          // Image at the top
+          Image.asset(image, height: 300, fit: BoxFit.contain),
+          const SizedBox(height: 40),
+
+          // Title
           Text(
             title,
             style: const TextStyle(
-              fontSize: 24,
+              fontSize: 32,
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 20),
+
+          // Subtitle
           Text(
             subtitle,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
-              color: Colors.grey[600],
+              fontWeight: FontWeight.w800,
+              color: Colors.black26,
             ),
             textAlign: TextAlign.center,
           ),
@@ -221,6 +232,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
 // HomeScreen widget
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
