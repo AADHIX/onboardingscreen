@@ -82,7 +82,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Color.fromARGB(255, 78, 5, 115),
                 ),
               ),
             ),
@@ -192,9 +192,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 10),
                       backgroundColor: const Color.fromARGB(255, 245, 241, 241),
-                      foregroundColor: const Color.fromARGB(15, 3, 1, 5),
+                      foregroundColor: Color.fromARGB(15, 233, 23, 23),
                     ),
-                    child: const Text('GET STARTED'),
+                    child: const Text(
+                      'GET STARTED',
+                        style: TextStyle(
+                        color: Colors.black,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 20,
+                      ),
+                    ),
                   ),
           ],
         ),
@@ -212,23 +219,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(image, height: 260, fit: BoxFit.contain),
+            Image.asset(image, height: 300, fit: BoxFit.cover),
           const SizedBox(height: 100),
           Text(
             title,
             style: const TextStyle(
-              fontSize: 32,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 20),
+            const SizedBox(height: 10),
           Text(
             subtitle,
             style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w800,
-              color: Colors.black26,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+                
             ),
             textAlign: TextAlign.center,
           ),
@@ -243,14 +251,13 @@ class CurvedClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
-    path.lineTo(0, size.height * 0.6); // Lower the start
-path.quadraticBezierTo(
-  size.width / 2,
-  size.height * 0.2, // Adjust the curve height
-  size.width,
-  size.height * 0.6, // Match start and end
-);
-
+    path.lineTo(0, size.height * 0.5); // Start higher from the top
+    path.quadraticBezierTo(
+      size.width * 0.5, // Control point x (middle of the widget)
+      size.height * 0.6, // Control point y (adjust the curve height)
+      size.width, // End point x (right edge of the widget)
+      size.height * 0.5, // End point y (higher the end)
+    );
     path.lineTo(size.width, 0);
     path.close();
     return path;
@@ -260,7 +267,7 @@ path.quadraticBezierTo(
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
 
-
+  
   
 
 // HomeScreen widget
